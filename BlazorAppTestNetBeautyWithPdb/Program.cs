@@ -1,6 +1,15 @@
 using BlazorAppTestNetBeautyWithPdb.Data;
+using ClassLibrary1;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+
+Class1.Test();
+
+CleanDllAtRoot();
+
+Class1.Test();
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,3 +38,14 @@ app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
 app.Run();
+
+
+static void CleanDllAtRoot()
+{
+#if RELEASE
+    File.Delete("ClassLibrary1.dll");
+    File.Delete("ClassLibrary2.dll");
+    File.Delete("ClassLibrary1.pdb");
+    File.Delete("ClassLibrary2.pdb");
+#endif
+}
